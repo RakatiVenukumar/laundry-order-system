@@ -1,4 +1,14 @@
+
+from flask import Blueprint, jsonify, request, abort
+from models.order import Order
+from models.order_item import OrderItem
+from services.dashboard import get_dashboard_data
 from services.order_service import create_order_service
+
+orders_bp = Blueprint('orders', __name__)
+
+
+
 @orders_bp.route('/orders', methods=['POST'])
 def create_order():
     data = request.get_json()
@@ -13,12 +23,6 @@ def create_order():
         return jsonify({'order_id': order_id, 'total_amount': total}), 201
     except Exception as e:
         return jsonify({'error': str(e)}), 400
-from flask import Blueprint, jsonify, request, abort
-from models.order import Order
-from models.order_item import OrderItem
-from services.dashboard import get_dashboard_data
-
-orders_bp = Blueprint('orders', __name__)
 
 @orders_bp.route('/orders', methods=['GET'])
 def get_orders():

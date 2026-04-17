@@ -1,6 +1,6 @@
 from models.order import Order
 from models.order_item import OrderItem
-from app import db
+from models import db
 from services.billing import calculate_total
 
 def create_order_service(customer_name, phone, items):

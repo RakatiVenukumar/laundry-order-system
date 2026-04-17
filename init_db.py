@@ -1,6 +1,6 @@
-from app import app, db
-from models.order import Order
-from models.order_item import OrderItem
+
+from app import app
+from models import db
 
 with app.app_context():
     db.create_all()

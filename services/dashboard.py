@@ -1,5 +1,5 @@
 from models.order import Order
-from flask_sqlalchemy import func
+from sqlalchemy import func
 
 def get_dashboard_data():
     from app import db
