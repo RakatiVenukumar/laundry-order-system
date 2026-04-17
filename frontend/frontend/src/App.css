@@ -1,38 +1,91 @@
-.App {
-  text-align: center;
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: linear-gradient(135deg, #f0f4ff 0%, #f9fafb 100%);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.navbar {
+  display: flex;
+  align-items: center;
+  background: #312e81;
+  color: #fff;
+  padding: 0.7rem 2.5rem;
+  box-shadow: 0 2px 12px rgba(49,46,129,0.07);
+  border-bottom: 2px solid #6366f1;
+}
+.navbar a {
+  color: #e0e7ff;
+  text-decoration: none;
+  font-weight: 500;
+  margin-right: 1.5rem;
+  font-size: 1.08rem;
+  padding: 6px 14px;
+  border-radius: 6px;
+  transition: background 0.18s, color 0.18s;
+}
+.navbar a:last-child {
+  margin-right: 0;
+}
+.navbar a:hover, .navbar a.active {
+  background: #6366f1;
+  color: #fff;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.main-content {
+  flex: 1;
+  padding: 2.5rem 5vw;
+  max-width: 950px;
+  margin: 0 auto;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.card {
+  background: linear-gradient(120deg, #f8fafc 60%, #e0e7ff 100%);
+  border-radius: 14px;
+  box-shadow: 0 4px 24px rgba(99,102,241,0.07);
+  padding: 2.5rem 2.5rem 2rem 2.5rem;
+  margin-bottom: 2.5rem;
+  border: 1.5px solid #e0e7ff;
+}
+
+form {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  gap: 1.1rem;
+  max-width: 370px;
+}
+input, button {
+  padding: 0.8rem 1.1rem;
+  border-radius: 6px;
+  border: 1.5px solid #c7d2fe;
+  font-size: 1.07rem;
+}
+input:focus {
+  outline: 2px solid #6366f1;
+  border-color: #6366f1;
+}
+button {
+  background: linear-gradient(90deg, #6366f1 60%, #818cf8 100%);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.18s, box-shadow 0.18s;
+  box-shadow: 0 2px 8px rgba(99,102,241,0.08);
+}
+button:hover {
+  background: linear-gradient(90deg, #4338ca 60%, #6366f1 100%);
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+@media (max-width: 700px) {
+  .main-content {
+    padding: 1rem 2vw;
   }
-  to {
-    transform: rotate(360deg);
+  .card {
+    padding: 1.2rem 0.7rem;
+  }
+  .navbar {
+    padding: 0.7rem 0.7rem;
+    font-size: 0.98rem;
   }
 }
