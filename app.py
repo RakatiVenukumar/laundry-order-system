@@ -2,16 +2,20 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from config import Config
 
-# Initialize Flask app
-app = Flask(__name__)
-app.config.from_object(Config)
+db = SQLAlchemy()
 
-db = SQLAlchemy(app)
+def create_app():
+    app = Flask(__name__)
+    app.config.from_object(Config)
+    db.init_app(app)
 
+    # Register blueprints here (later steps)
+    # from routes.example_route import example_bp
+    # app.register_blueprint(example_bp)
 
-# Register blueprints
-from routes.example_route import example_bp
-app.register_blueprint(example_bp)
+    return app
+
+app = create_app()
 
 if __name__ == "__main__":
     app.run(debug=True)
