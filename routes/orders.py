@@ -1,3 +1,9 @@
+from services.dashboard import get_dashboard_data
+# Dashboard route
+@orders_bp.route('/dashboard', methods=['GET'])
+def dashboard():
+    data = get_dashboard_data()
+    return jsonify(data)
 from flask import abort
 @orders_bp.route('/orders/<int:order_id>/status', methods=['PUT'])
 def update_order_status(order_id):
