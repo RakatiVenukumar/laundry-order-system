@@ -30,6 +30,7 @@ def get_orders():
         status = request.args.get('status')
         customer = request.args.get('customer')
         phone = request.args.get('phone')
+        garment_type = request.args.get('garment_type')
 
         query = Order.query
         if status:
@@ -38,7 +39,6 @@ def get_orders():
             query = query.filter(Order.customer_name.ilike(f"%{customer}%"))
         if phone:
             query = query.filter(Order.phone.ilike(f"%{phone}%"))
-
         orders = query.all()
         result = []
         for order in orders:
@@ -51,6 +51,16 @@ def get_orders():
                 }
                 for item in order.items
             ]
+            # Filter by garment_type if provided
+            if garment_type:
+                filtered_items = [i for i in items if garment_type.lower() in i['garment_type'].lower()]
+                if not filtered_items:
+                    continue
+            else:
+                filtered_items = items
+            # Estimate delivery date: 3 days after created_at
+            from datetime import timedelta
+            estimated_delivery = order.created_at + timedelta(days=3)
             result.append({
                 'id': order.id,
                 'customer_name': order.customer_name,
@@ -58,7 +68,8 @@ def get_orders():
                 'status': order.status,
                 'total_amount': order.total_amount,
                 'created_at': order.created_at,
-                'items': items
+                'estimated_delivery_date': estimated_delivery,
+                'items': filtered_items
             })
         return jsonify(result)
     except Exception as e:
