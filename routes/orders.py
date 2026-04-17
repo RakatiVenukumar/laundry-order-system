@@ -1,3 +1,20 @@
+from flask import abort
+@orders_bp.route('/orders/<int:order_id>/status', methods=['PUT'])
+def update_order_status(order_id):
+    allowed_statuses = ['RECEIVED', 'PROCESSING', 'READY', 'DELIVERED']
+    data = request.get_json()
+    new_status = data.get('status')
+    if new_status not in allowed_statuses:
+        return jsonify({'error': 'Invalid status'}), 400
+
+    order = Order.query.get(order_id)
+    if not order:
+        return jsonify({'error': 'Order not found'}), 404
+
+    order.status = new_status
+    from app import db
+    db.session.commit()
+    return jsonify({'message': 'Status updated', 'order_id': order.id, 'new_status': order.status})
 from flask import Blueprint, jsonify, request
 from models.order import Order
 from models.order_item import OrderItem
