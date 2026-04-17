@@ -1,3 +1,18 @@
+from services.order_service import create_order_service
+@orders_bp.route('/orders', methods=['POST'])
+def create_order():
+    data = request.get_json()
+    if not data or 'customer_name' not in data or 'phone' not in data or 'items' not in data:
+        return jsonify({'error': 'Missing required fields'}), 400
+    try:
+        order_id, total = create_order_service(
+            data['customer_name'],
+            data['phone'],
+            data['items']
+        )
+        return jsonify({'order_id': order_id, 'total_amount': total}), 201
+    except Exception as e:
+        return jsonify({'error': str(e)}), 400
 from flask import Blueprint, jsonify, request, abort
 from models.order import Order
 from models.order_item import OrderItem
